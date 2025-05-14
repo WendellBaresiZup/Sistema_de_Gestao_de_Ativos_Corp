@@ -1,4 +1,5 @@
 package com.zup.gestaodeativos.dto;
 
-public class UserRole {
+public enum UserRole {
+    ADMIN, USER
 }
