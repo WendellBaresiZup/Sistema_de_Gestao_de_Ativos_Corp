@@ -1,12 +1,18 @@
 package com.zup.gestaodeativos.models;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 @Data
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table(name = "moventeLogs")
 public class MovementLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,16 +21,4 @@ public class MovementLog {
     private User user;
     private LocalDateTime movementDate;
     private String action;
-
-    public MovementLog(){
-    }
-
-    public MovementLog(Long id, Active active, User user, LocalDateTime movementDate, String action){
-        this.id = id;
-        this.active = active;
-        this.user = user;
-        this.movementDate = movementDate;
-        this.action = action;
-    }
-
 }
