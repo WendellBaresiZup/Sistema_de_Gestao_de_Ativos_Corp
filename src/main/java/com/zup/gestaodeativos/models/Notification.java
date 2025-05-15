@@ -2,7 +2,6 @@ package com.zup.gestaodeativos.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDateTime;
 
 @Data
