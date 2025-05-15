@@ -24,4 +24,5 @@ public class Notification {
     private String message;
     @Column(nullable = false)
     private LocalDateTime sent;
+
 }
