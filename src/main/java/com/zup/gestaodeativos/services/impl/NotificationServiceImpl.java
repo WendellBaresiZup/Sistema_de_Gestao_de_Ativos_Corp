@@ -1,12 +1,13 @@
-package com.zup.gestaodeativos.services;
+package com.zup.gestaodeativos.services.impl;
 
 import com.zup.gestaodeativos.models.Notification;
+import com.zup.gestaodeativos.services.NotificationService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class NotificationServiceImpl implements NotificationService{
+public class NotificationServiceImpl implements NotificationService {
     @Override
     public List<Notification> findAll() {
         return List.of();
