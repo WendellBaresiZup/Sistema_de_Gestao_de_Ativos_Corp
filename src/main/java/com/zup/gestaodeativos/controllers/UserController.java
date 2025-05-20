@@ -60,8 +60,13 @@ public class UserController {
                     @ApiResponse(responseCode = "400", description = "Dados inválidos")
             }
     )
+//    @PostMapping("/register")
+//    public ResponseEntity<UserResponseDTO> register(@Valid @RequestBody UserRequestDTO dto) {
+//        return ResponseEntity.status(201).body(userService.register(dto));
+//    }
     @PostMapping("/register")
     public ResponseEntity<UserResponseDTO> register(@Valid @RequestBody UserRequestDTO dto) {
+        System.out.println("Recebido: " + dto);
         return ResponseEntity.status(201).body(userService.register(dto));
     }
 
