@@ -1,4 +1,4 @@
-package com.zup.gestaodeativos.controlles;
+package com.zup.gestaodeativos.controllers;
 
 import com.zup.gestaodeativos.models.MovementLog;
 import com.zup.gestaodeativos.services.MovementLogService;
