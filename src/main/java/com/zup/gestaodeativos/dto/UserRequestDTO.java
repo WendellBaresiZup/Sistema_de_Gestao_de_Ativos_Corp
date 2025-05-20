@@ -1,34 +1,29 @@
 package com.zup.gestaodeativos.dto;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Schema(description = "DTO para cadastro de usuário")
 public class UserRequestDTO {
-
-        @NotBlank
-        @Size(max = 50)
-        @Schema(example = "Maria da Silva")
+        @NotBlank(message = "O nome não pode estar em branco")
+        @Size(max = 50, message = "O nome deve ter no máximo 50 caracteres")
         private String nome;
 
-        @NotBlank
-        @Email(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$", flags = Pattern.Flag.CASE_INSENSITIVE)
-        @Schema(example = "maria@email.com")
+        @NotBlank(message = "O email não pode estar em branco")
+        @Email(message = "Formato de email inválido")
+        @Size(max = 100, message = "O email deve ter no máximo 100 caracteres")
         private String email;
 
-        @NotBlank
-        @Pattern(regexp = "\\d{11,}", message = "Telefone deve conter no mínimo 11 dígitos numéricos")
-        @Schema(example = "11999999999")
+        @NotBlank(message = "O telefone não pode estar em branco")
+        @Size(max = 15, message = "O telefone deve ter no máximo 15 caracteres")
         private String telefone;
 
-        @NotBlank
-        @Size(min = 6, max = 20)
-        @Schema(example = "senha123")
-        private String senha;
+        @NotBlank(message = "A senha não pode estar em branco")
+        @Size(min = 6, message = "A senha deve ter no mínimo 6 caracteres")
+        private String senha; 
+        @NotNull(message = "O papel do usuário não pode ser nulo")
+        private UserRole role;
 }

@@ -1,8 +1,11 @@
 package com.zup.gestaodeativos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zup.gestaodeativos.dto.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -30,4 +33,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
     private UserRole role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private Set<AssetAssignment> assignments = new HashSet<>();
 }
