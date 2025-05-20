@@ -1,16 +1,10 @@
 package com.zup.gestaodeativos.dto;
 
+import lombok.Data;
+
 import java.time.LocalDate;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-
+@Data
 public class ActiveResponseDTO {
     private Long id;
     private String type;
@@ -18,6 +12,7 @@ public class ActiveResponseDTO {
     private String serialNumber;
     private LocalDate acquisitionDate;
     private LocalDate warrantyExpires;
-    private Long currentEmployeeId;
-    private String currentEmployeeName;
+    private boolean associated;
+    private Long associatedUserId;
+    private String associatedUserName;
 }
