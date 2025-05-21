@@ -1,8 +1,19 @@
 package com.zup.gestaodeativos.exceptions;
 
-public record ErrorResponse(
-        String code,
-        String message,
-        String description,
-        String error
-) {}
+import lombok.Getter;
+import lombok.Setter;
+import java.time.LocalDateTime;
+
+@Setter
+@Getter
+public class ErrorResponse {
+    private int statusCode;
+    private String message;
+    private LocalDateTime timestamp;
+
+    public ErrorResponse(int statusCode, String message) {
+        this.statusCode = statusCode;
+        this.message = message;
+        this.timestamp = LocalDateTime.now();
+    }
+}
