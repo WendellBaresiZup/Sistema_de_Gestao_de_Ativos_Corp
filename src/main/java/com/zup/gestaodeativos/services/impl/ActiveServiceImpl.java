@@ -2,6 +2,9 @@ package com.zup.gestaodeativos.services.impl;
 
 import com.zup.gestaodeativos.dto.ActiveRequestDTO;
 import com.zup.gestaodeativos.dto.ActiveResponseDTO;
+import com.zup.gestaodeativos.exceptions.BusinessRuleViolationException;
+import com.zup.gestaodeativos.exceptions.DuplicateResourceException;
+import com.zup.gestaodeativos.exceptions.ResourceNotFoundException;
 import com.zup.gestaodeativos.models.Active;
 import com.zup.gestaodeativos.models.AssetAssignment;
 import com.zup.gestaodeativos.repository.ActiveRepository;
@@ -32,7 +35,7 @@ public class ActiveServiceImpl implements ActiveService {
     @Transactional
     public ActiveResponseDTO createActive(ActiveRequestDTO activeRequestDTO) {
         if (activeRepository.findBySerialNumber(activeRequestDTO.getSerialNumber()).isPresent()) {
-            throw new IllegalArgumentException("Ativo com este número de série já existe.");
+            throw new DuplicateResourceException("Ativo com este número de série já existe.");
         }
 
         Active active = new Active();
@@ -70,11 +73,11 @@ public class ActiveServiceImpl implements ActiveService {
     @Transactional
     public void deleteActive(Long id) {
         Active active = activeRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Ativo não encontrado com ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Ativo não encontrado com ID: " + id));
 
         Optional<AssetAssignment> currentAssignmentOpt = assetAssignmentRepository.findByActiveIdAndIsActiveTrue(active.getId());
         if (currentAssignmentOpt.isPresent()) {
-            throw new IllegalStateException("Não é possível deletar um ativo que está atualmente associado. Remova a associação primeiro.");
+            throw new BusinessRuleViolationException("Não é possível deletar um ativo que está atualmente associado. Remova a associação primeiro.");
         }
         activeRepository.delete(active);
     }
