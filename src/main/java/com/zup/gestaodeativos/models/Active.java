@@ -32,7 +32,6 @@ public class Active {
     @Column(nullable = false)
     private LocalDate warrantyExpires;
 
-    @Builder.Default
     private boolean available = true;
 
     @OneToMany(mappedBy = "active", cascade = CascadeType.ALL, orphanRemoval = true)
