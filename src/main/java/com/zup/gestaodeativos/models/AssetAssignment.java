@@ -37,4 +37,12 @@ public class AssetAssignment {
     @Builder.Default
     @Column(nullable = false)
     private boolean isActive = true;
+
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
+    }
 }
