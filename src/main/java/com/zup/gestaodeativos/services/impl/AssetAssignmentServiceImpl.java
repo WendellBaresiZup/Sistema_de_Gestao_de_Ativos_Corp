@@ -67,21 +67,22 @@ public class AssetAssignmentServiceImpl implements AssetAssignmentService {
         return AssetAssignmentMapper.toDto(savedAssignment);
     }
 
-    @Override
-    @Transactional
-    public void removeAssignment(Long assignmentId) {
-        AssetAssignment assignment = assetAssignmentRepository.findById(assignmentId)
-                .orElseThrow(() -> new ResourceNotFoundException("Associação não encontrada com ID: " + assignmentId));
+@Override
+@Transactional
+public void removeAssignment(Long assignmentId) {
+    AssetAssignment assignment = assetAssignmentRepository.findById(assignmentId)
+            .orElseThrow(() -> new ResourceNotFoundException("Associação não encontrada com ID: " + assignmentId));
 
-        assignment.setUnassignedAt(LocalDateTime.now());
-        assetAssignmentRepository.save(assignment);
+    assignment.setUnassignedAt(LocalDateTime.now());
+    assignment.setIsActive(false);
+    assetAssignmentRepository.save(assignment);
 
-        Active activeEntity = assignment.getActive();
-        if (activeEntity != null) {
-            activeEntity.setAvailable(true);
-            activeRepository.save(activeEntity);
-        }
+    Active activeEntity = assignment.getActive();
+    if (activeEntity != null) {
+        activeEntity.setAvailable(true);
+        activeRepository.save(activeEntity);
     }
+}
 
     @Override
     public Optional<AssetAssignmentDTO> findAssignmentById(Long assignmentId) {
