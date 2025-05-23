@@ -161,8 +161,6 @@ class ActiveServiceImplTest {
         assignment.setUser(user);
 
         when(assetAssignmentRepository.findByActiveIdAndIsActiveTrue(1L)).thenReturn(Optional.of(assignment));
-
-        // Usando reflection para testar método privado
         ActiveResponseDTO dto = org.springframework.test.util.ReflectionTestUtils.invokeMethod(
                 activeService, "convertToActiveResponseDTO", active);
 
