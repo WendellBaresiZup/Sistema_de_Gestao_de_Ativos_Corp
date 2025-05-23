@@ -4,7 +4,6 @@ import com.zup.gestaodeativos.dto.AssetAssignmentDTO;
 import com.zup.gestaodeativos.dto.CreateAssetAssignmentDTO;
 import com.zup.gestaodeativos.exceptions.DuplicateResourceException;
 import com.zup.gestaodeativos.exceptions.ResourceNotFoundException;
-import com.zup.gestaodeativos.mapper.AssetAssignmentMapper;
 import com.zup.gestaodeativos.models.Active;
 import com.zup.gestaodeativos.models.AssetAssignment;
 import com.zup.gestaodeativos.models.User;
