@@ -28,5 +28,5 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Run tests
-        run: mvn test
+      - name: Run tests with coverage
+        run: mvn test jacoco:report
