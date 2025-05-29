@@ -104,4 +104,31 @@ public class UserController {
         List<UserResponseDTO> users = userService.findUsersByName(nome);
         return users.isEmpty() ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(users, HttpStatus.OK);
     }
+    @Operation(
+            summary = "Excluir usuário por ID",
+            description = "Endpoint para excluir um usuário pelo ID",
+            responses = {
+                    @ApiResponse(responseCode = "204", description = "Usuário excluído com sucesso"),
+                    @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
+            }
+    )
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Operation(
+            summary = "Listar todos os usuários",
+            description = "Endpoint para listar todos os usuários",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Lista de usuários retornada com sucesso"),
+                    @ApiResponse(responseCode = "204", description = "Nenhum usuário encontrado")
+            }
+    )
+    @GetMapping
+    public ResponseEntity<List<UserResponseDTO>> findAllUsers() {
+        List<UserResponseDTO> users = userService.findAllUsers();
+        return users.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(users);
+    }
 }
