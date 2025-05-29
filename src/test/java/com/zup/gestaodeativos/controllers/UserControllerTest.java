@@ -91,4 +91,36 @@ class UserControllerTest {
 
         assertEquals(HttpStatus.NO_CONTENT, result.getStatusCode());
     }
+    @Test
+    void deleteUser_shouldReturnNoContent_whenUserExists() {
+
+        doNothing().when(userService).deleteUser(1L);
+
+        ResponseEntity<Void> result = controller.deleteUser(1L);
+
+        assertEquals(HttpStatus.NO_CONTENT, result.getStatusCode());
+        assertNull(result.getBody());
+        verify(userService).deleteUser(1L);
+    }
+
+    @Test
+    void findAllUsers_shouldReturnOkWithList() {
+        List<UserResponseDTO> users = List.of(new UserResponseDTO(), new UserResponseDTO());
+        when(userService.findAllUsers()).thenReturn(users);
+
+        ResponseEntity<List<UserResponseDTO>> result = controller.findAllUsers();
+
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+        assertEquals(users, result.getBody());
+    }
+
+    @Test
+    void findAllUsers_shouldReturnNoContent_whenListIsEmpty() {
+        when(userService.findAllUsers()).thenReturn(Collections.emptyList());
+
+        ResponseEntity<List<UserResponseDTO>> result = controller.findAllUsers();
+
+        assertEquals(HttpStatus.NO_CONTENT, result.getStatusCode());
+        assertNull(result.getBody());
+    }
 }

@@ -157,4 +157,51 @@ class UserServiceImplTest {
         assertEquals("user1@email.com", result.get(0).getEmail());
         assertEquals("user2@email.com", result.get(1).getEmail());
     }
+    @Test
+    void deleteUser_shouldDeleteUser_whenUserExists() {
+        User user = new User();
+        user.setId(1L);
+        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+
+        assertDoesNotThrow(() -> userService.deleteUser(1L));
+        verify(userRepository).delete(user);
+    }
+
+    @Test
+    void deleteUser_shouldThrowBusinessRuleViolationException_whenUserNotFound() {
+        when(userRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(BusinessRuleViolationException.class, () -> userService.deleteUser(1L));
+        verify(userRepository, never()).delete(any());
+    }
+
+    @Test
+    void findAllUsers_shouldReturnListOfUserResponseDTO() {
+        User user1 = new User();
+        user1.setId(1L);
+        user1.setNome("User 1");
+        user1.setEmail("user1@email.com");
+
+        User user2 = new User();
+        user2.setId(2L);
+        user2.setNome("User 2");
+        user2.setEmail("user2@email.com");
+
+        when(userRepository.findAll()).thenReturn(List.of(user1, user2));
+
+        List<UserResponseDTO> result = userService.findAllUsers();
+
+        assertEquals(2, result.size());
+        assertEquals("user1@email.com", result.get(0).getEmail());
+        assertEquals("user2@email.com", result.get(1).getEmail());
+    }
+
+    @Test
+    void findAllUsers_shouldReturnEmptyList_whenNoUsersExist() {
+        when(userRepository.findAll()).thenReturn(Collections.emptyList());
+
+        List<UserResponseDTO> result = userService.findAllUsers();
+
+        assertTrue(result.isEmpty());
+    }
 }
