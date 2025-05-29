@@ -79,4 +79,23 @@ public class UserServiceImpl implements UserService {
                 })
                 .collect(Collectors.toList());
     }
+    @Override
+    @Transactional
+    public void deleteUser(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new BusinessRuleViolationException("Usuário não encontrado."));
+        userRepository.delete(user);
+    }
+
+    @Override
+    public List<UserResponseDTO> findAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(user -> {
+                    UserResponseDTO responseDTO = new UserResponseDTO();
+                    BeanUtils.copyProperties(user, responseDTO);
+                    return responseDTO;
+                })
+                .collect(Collectors.toList());
+    }
 }

@@ -13,4 +13,6 @@ public interface UserService {
     UserResponseDTO login(LoginRequestDTO loginRequestDTO);
     Optional<UserResponseDTO> findUserById(Long id);
     List<UserResponseDTO> findUsersByName(String name);
+    void deleteUser(Long id);
+    List<UserResponseDTO> findAllUsers();
 }
