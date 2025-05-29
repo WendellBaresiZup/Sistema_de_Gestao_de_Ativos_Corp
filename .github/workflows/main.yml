@@ -2,13 +2,17 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      SPRING_APPLICATION_NAME: Sistema_de_Gestao_de_Ativos_Corp
 
     steps:
       - name: Check out code
@@ -28,5 +32,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Run tests with coverage
+      - name: Run tests using H2 profile
+        run: mvn test -Dspring.profiles.active=test
         run: mvn test jacoco:report
